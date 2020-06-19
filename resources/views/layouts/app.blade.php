@@ -19,8 +19,8 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
-    <div id="app">
+<body class="hold-transition sidebar-mini">
+    <div class="wrapper" id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -33,7 +33,17 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <router-link to="/dashboard" class="nav-link">
+                                Dashboard
+                            </router-link>
+                        </li>
 
+                        <li class="nav-item">
+                            <router-link to="/map" class="nav-link">
+                                Map
+                            </router-link>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -72,9 +82,17 @@
             </div>
         </nav>
 
-        <main class="py-4">
-            @yield('content')
-        </main>
+        <div class="content-wrapper">
+            <div class="content">
+                <div class="container-fluid">
+
+                    <router-view></router-view>
+
+                    <vue-progress-bar></vue-progress-bar>
+
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>
