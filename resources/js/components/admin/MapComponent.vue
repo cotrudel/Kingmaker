@@ -13,14 +13,14 @@
                     :url="url"
                     :bounds="bounds"
             />
-            <l-marker
+            <!--<l-marker
                     v-for="city in mapData.cities"
                     :key="city.name"
                     :lat-lng="city"
                     :icon="newIcon('city')"
             >
             <l-popup :content="city.name" />
-            </l-marker>
+            </l-marker>-->
         </l-map>
     </div>
 </template>
@@ -58,16 +58,10 @@
             var _this = this;
             $.getJSON("/resources/demoMap.json", function (json) {
                 _this.mapData = json;
-            });
+            }).done(this.addLayers);
         },
         mounted() {
             this.setupVars();
-
-            // create overlay layers
-            var overlayLayers = {
-                'Hex Identifiers':L.imageOverlay("/images/kingmaker-map-numbered.png", this.bounds)
-            };
-            L.control.layers(null, overlayLayers).addTo(this.map);
 
             // set initial map view
             this.map.setView([-50, 450], .10);
@@ -84,6 +78,22 @@
                 Object.keys(iconData).forEach(iconKey => {
                     _this.icons[iconKey] = L.Icon.extend(iconData[iconKey]);
                 })
+            },
+            addLayers: function () {
+                // create layer groups for markers
+                var cityMarkers = [];
+                for (var key in this.mapData.cities) {
+                    var marker = L.marker([this.mapData.cities[key].lat, this.mapData.cities[key].lng], {icon: new this.icons.city})
+                        .bindPopup(this.mapData.cities[key].title);
+                    cityMarkers.push(marker);
+                }
+                var cityGroup = L.layerGroup(cityMarkers);
+
+                var overlayLayers = {
+                    'Hex Identifiers':L.imageOverlay("/images/kingmaker-map-numbered.png", this.bounds),
+                    'Cities':cityGroup
+                };
+                L.control.layers(null, overlayLayers).addTo(this.map);
             },
             newIcon: function (type) {
                 // construct new icon of type
