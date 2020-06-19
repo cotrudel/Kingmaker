@@ -20,7 +20,6 @@
             >
             <l-popup :content="star.name" />
             </l-marker>
-            <l-polyline :lat-lngs="travel" />
         </l-map>
     </div>
 </template>
@@ -48,15 +47,20 @@
                 maxZoom: 2,
                 crs: CRS.Simple,
                 stars: [
-                    { name: "Sol", lng: 175.2, lat: 145.0 },
-                    { name: "Mizar", lng: 41.6, lat: 130.1 },
-                    { name: "Krueger-Z", lng: 13.4, lat: 56.5 },
-                    { name: "Deneb", lng: 218.7, lat: 8.3 }
-                ]
+                        { name: "Sol", lng: 175.2, lat: 145.0 },
+                        { name: "Mizar", lng: 41.6, lat: 130.1 },
+                        { name: "Krueger-Z", lng: 13.4, lat: 56.5 },
+                        { name: "Deneb", lng: 218.7, lat: 8.3 }
+                    ]
             };
         },
         mounted() {
-            this.$refs.map.mapObject.setView([-50, 450], .10);
+            var map = this.$refs.map.mapObject;
+            var overlayLayers = {
+                'Numbered':L.imageOverlay("/images/kingmaker-map-numbered.png", this.bounds)
+            };
+            L.control.layers(null, overlayLayers).addTo(map);
+            map.setView([-50, 450], .10);
         }
     };
 </script>
