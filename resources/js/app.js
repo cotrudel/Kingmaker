@@ -49,7 +49,7 @@ import { routes } from './routes';
 //Register Routes
 const router = new VueRouter({
     routes,
-    mode: 'hash',
+    mode: 'history',
 })
 
 const app = new Vue({
