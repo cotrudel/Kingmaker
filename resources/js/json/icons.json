@@ -1,0 +1,10 @@
+{
+  "city": {
+    "options": {
+      "iconUrl": "/images/icons/city.png",
+      "iconSize":     [50, 50],
+      "iconAnchor":   [25, 25],
+      "popupAnchor":  [0, -25]
+    }
+  }
+}
