@@ -3,7 +3,7 @@ import Map from './components/admin/MapComponent.vue'
 
 export const routes = [
     {
-        path:'/dashboard',
+        path:'/',
         component:Dashboard
     },
     {

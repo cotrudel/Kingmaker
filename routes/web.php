@@ -13,10 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/app', 'AppController@index')->name('app');
+Route::get('/{vue_capture?}', function () {
+    return view('layouts.app');
+})->where('vue_capture', '^(?!storage).*$');
