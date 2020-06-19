@@ -1,9 +1,11 @@
 {
-  "cities": [
-    { "title": "Capitol", "lng": 440, "lat": -90},
-    { "title": "Sol", "lng": 175.2, "lat": 145.0 },
-    { "title": "Mizar", "lng": 41.6, "lat": 130.1 },
-    { "title": "Krueger-Z", "lng": 13.4, "lat": 56.5 },
-    { "title": "Deneb", "lng": 218.7, "lat": 8.3 }
-  ]
+  "markers": {
+    "cities": [
+      { "title": "Capitol", "lng": 440, "lat": -90},
+      { "title": "Sol", "lng": 175.2, "lat": 145.0 },
+      { "title": "Mizar", "lng": 41.6, "lat": 130.1 },
+      { "title": "Krueger-Z", "lng": 13.4, "lat": 56.5 },
+      { "title": "Deneb", "lng": 218.7, "lat": 8.3 }
+    ]
+  }
 }

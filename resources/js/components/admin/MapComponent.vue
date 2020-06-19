@@ -49,7 +49,7 @@
                 maxZoom: 1,
                 crs: CRS.Simple,
                 map: null,
-                mapData: [],
+                mapData: {},
                 icons: []
             };
         },
@@ -80,20 +80,30 @@
                 })
             },
             addLayers: function () {
-                // create layer groups for markers
-                var cityMarkers = [];
-                for (var key in this.mapData.cities) {
-                    var marker = L.marker([this.mapData.cities[key].lat, this.mapData.cities[key].lng], {icon: new this.icons.city})
-                        .bindPopup(this.mapData.cities[key].title);
-                    cityMarkers.push(marker);
-                }
-                var cityGroup = L.layerGroup(cityMarkers);
-
+                // define initial layers
                 var overlayLayers = {
-                    'Hex Identifiers':L.imageOverlay("/images/kingmaker-map-numbered.png", this.bounds),
-                    'Cities':cityGroup
+                    'Hex Identifiers':L.imageOverlay("/images/kingmaker-map-numbered.png", this.bounds)
                 };
+
+                // create layer groups for markers
+                for (var type in this.mapData.markers) {
+                    var markerArray = [];
+                    for (var key in this.mapData.markers[type]) {
+                        var marker = L.marker([this.mapData.markers[type][key].lat, this.mapData.markers[type][key].lng], {icon: new this.icons[type]})
+                            .bindPopup(this.mapData.markers[type][key].title);
+                        markerArray.push(marker);
+                    }
+                    var markerGroup = L.layerGroup(markerArray);
+                    overlayLayers[this.capitalize(type)] = markerGroup;
+                    markerGroup.addTo(this.map);
+                }
+
                 L.control.layers(null, overlayLayers).addTo(this.map);
+            },
+            capitalize: function (value) {
+                if (!value) return ''
+                value = value.toString()
+                return value.charAt(0).toUpperCase() + value.slice(1)
             },
             newIcon: function (type) {
                 // construct new icon of type

@@ -1,5 +1,5 @@
 {
-  "city": {
+  "cities": {
     "options": {
       "iconUrl": "/images/icons/city.png",
       "iconSize":     [50, 50],
